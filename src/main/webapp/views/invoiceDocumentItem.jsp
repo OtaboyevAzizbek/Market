@@ -1,0 +1,84 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.market.dto.invoiceDocumentItem.InvoiceDocumentItemDTO" %>
+<%@ page import="com.market.dto.invoiceDocument.InvoiceDocumentDTO" %>
+<%@ include file="header.jsp"%>
+<%List<InvoiceDocumentItemDTO> invoiceDocumentItemDTOS = (List<InvoiceDocumentItemDTO>) request.getAttribute("invoiceDocumentItemList");%>
+<%List<InvoiceDocumentDTO> invoiceDocumentDTOList = (List<InvoiceDocumentDTO>) request.getAttribute("invoiceDocumentList");%>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target=".bd-example-modal-c" type="button"><i class="fa-solid fa-plus mx-sm-1"></i>Mahsulot kirim qilish</button>
+</div>
+<div class="col-12 col-lg-12 col-xxl-9 d-flex">
+    <div class="card flex-fill">
+        <div class="card-body">
+        <table class="table table-hover my-0" id="invoiceDocumentItemTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Yuk xati raqami</th>
+                <th>Tashkilot nomi</th>
+                <th>Mahsulot nomi</th>
+                <th>Mahsulot miqdori</th>
+                <th>O'lchov birligi</th>
+                <th>Mahsulot narxi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% int count=0;%>
+            <% for (InvoiceDocumentItemDTO documentItemDTO : invoiceDocumentItemDTOS) {%>
+            <tr>
+                <td><%=count++%></td>
+                <td><%=documentItemDTO.getInvoiceDocument().getDocumentNumber()%></td>
+                <td><%=documentItemDTO.getInvoiceDocument().getOrganization().getName()%></td>
+                <td><%=documentItemDTO.getProduct().getName()%></td>
+                <td><%=documentItemDTO.getAmount()%></td>
+                <td><%=documentItemDTO.getProduct().getUnitType().getName()%></td>
+                <td><%=documentItemDTO.getPurchasePrice()%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+<%--Modal for insert--%>
+<div class="modal fade bd-example-modal-c" aria-labelledby="exampleModalInvoiceDocItem2" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalInvoiceDocItem2"><b>Mahsulot kirim qilish</b></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="create_category" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleCategoryName2" class="form-label">Kategoriya nomi</label>
+                        <input type="text" name="name" class="form-control" id="exampleCategoryName2" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
+                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready( function () {
+        $("#invoiceDocumentItemTable").DataTable({
+            "oLanguage": {
+                "sSearch": "Qidiruv:",
+                "sInfo": "_TOTAL_ ta ma'lumotdan (_START_ dan _END_) tagachasi ko'rsatildi.",
+                "sLengthMenu": "_MENU_ ta natijani ko'rsatish rejimi",
+                "sZeroRecords": "Bunday ma'lumot topilmadi!",
+                "sInfoFiltered": "_MAX_ ta ma'lumotdan saralandi.",
+                "sInfoEmpty": "Bironta ham ma'lumot topilmadi! ",
+                "sEmptyTable": "Jadvalda ma'lumotlar mavjud emas!",
+                "oPaginate": {
+                    "sPrevious": "Oldingi sahifa",
+                    "sNext": "Keyingi sahifa"
+                }
+            }
+        });
+    } );
+</script>
+<%@ include file="footer.jsp"%>

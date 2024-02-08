@@ -1,6 +1,6 @@
-package com.market.dto.category;
+package com.market.dto.organization;
 
-import com.market.entity.Product;
+import com.market.entity.InvoiceDocument;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +13,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryDTO {
+public class OrganizationDTO {
     Long id;
     String name;
-    List<Product> productList;
+    String address;
+    String phoneNumber;
+    List<InvoiceDocument> invoiceDocumentList;
 }

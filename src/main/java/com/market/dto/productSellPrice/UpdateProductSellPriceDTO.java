@@ -1,4 +1,4 @@
-package com.market.dto.category;
+package com.market.dto.productSellPrice;
 
 import com.market.entity.Product;
 import lombok.AccessLevel;
@@ -7,14 +7,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryDTO {
-    Long id;
-    String name;
-    List<Product> productList;
+public class UpdateProductSellPriceDTO {
+    Product product;
+    Float price;
+    Timestamp timestamp;
 }

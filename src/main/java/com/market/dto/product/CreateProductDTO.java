@@ -1,20 +1,20 @@
-package com.market.dto.category;
+package com.market.dto.product;
 
-import com.market.entity.Product;
+import com.market.entity.Category;
+import com.market.entity.UnitType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryDTO {
-    Long id;
+public class CreateProductDTO {
     String name;
-    List<Product> productList;
+    UnitType unitType;
+    Category category;
+    Float totalAmount;
 }

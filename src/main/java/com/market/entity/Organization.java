@@ -21,12 +21,10 @@ public class Organization {
     Long id;
     @Column(name = "organization_name",nullable = false,unique = true)
     String name;
-    @Column(name = "address",nullable = false)
+    @Column(name = "organization_address",nullable = false)
     String address;
     @Column(name = "phone_number",nullable = false)
     String phoneNumber;
-    @Column(name = "description",nullable = false)
-    String description;
     @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
-    List<ProductDocument> productDocumentList;
+    List<InvoiceDocument> invoiceDocumentList;
 }

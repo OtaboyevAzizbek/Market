@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -14,19 +14,19 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "product_document")
-public class ProductDocument {
+@Table(name = "invoice_documents")
+public class InvoiceDocument {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_document_id")
+    @Column(name = "invoice_document_id")
     Long id;
-    @Column(name = "document_number",nullable = false)
+    @Column(name = "invoice_document_number",nullable = false)
     String documentNumber;
     @ManyToOne
     @JoinColumn(name = "organization_id",nullable = false)
     Organization organization;
-    @Column(name = "created_time",nullable = false)
-    LocalDate localDate;
-    @OneToMany(mappedBy = "productDocument",cascade = CascadeType.ALL)
-    List<ProductDocumentItem> productDocumentItemList;
+    @Column(name = "created_date")
+    Timestamp timestamp;
+    @OneToMany(mappedBy = "invoiceDocument",cascade = CascadeType.ALL)
+    List<InvoiceDocumentItem> invoiceDocumentItemList;
 }

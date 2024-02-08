@@ -8,3 +8,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  mvc:              # JSP File Configuration
+    view:
+      prefix: /views/
+      suffix: .jsp

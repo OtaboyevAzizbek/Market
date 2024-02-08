@@ -1,5 +1,6 @@
-package com.market.dto.category;
+package com.market.dto.invoiceDocumentItem;
 
+import com.market.entity.InvoiceDocument;
 import com.market.entity.Product;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -7,14 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryDTO {
-    Long id;
-    String name;
-    List<Product> productList;
+public class UpdateInvoiceDocumentItemDTO {
+    InvoiceDocument invoiceDocument;
+    Product product;
+    Float amount;
+    Float purchasePrice;
+    Float sellPrice;
 }

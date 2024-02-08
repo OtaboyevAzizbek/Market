@@ -1,4 +1,4 @@
-package com.market.dto.category;
+package com.market.dto.productPurchasePrice;
 
 import com.market.entity.Product;
 import lombok.AccessLevel;
@@ -7,14 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryDTO {
-    Long id;
-    String name;
-    List<Product> productList;
+public class CreateProductPurchasePriceDTO {
+    Product product;
+    Float price;
+    Boolean status;
 }

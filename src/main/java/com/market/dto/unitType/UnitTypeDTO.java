@@ -1,4 +1,4 @@
-package com.market.dto.category;
+package com.market.dto.unitType;
 
 import com.market.entity.Product;
 import lombok.AccessLevel;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryDTO {
+public class UnitTypeDTO {
     Long id;
     String name;
     List<Product> productList;
