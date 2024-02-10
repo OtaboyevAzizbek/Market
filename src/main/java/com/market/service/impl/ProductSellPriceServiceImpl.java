@@ -59,6 +59,11 @@ public class ProductSellPriceServiceImpl implements ProductSellPriceService {
     }
 
     @Override
+    public List<ProductSellPriceDTO> getProductSellPriceListByProductAndStatus(Product product) {
+        return productSellPriceMapper.toDTOs(productSellPriceRepository.findProductSellPricesByProductAndStatusTrue(product));
+    }
+
+    @Override
     public List<ProductSellPriceDTO> getProductSellPriceList() {
         return productSellPriceMapper.toDTOs(productSellPriceRepository.findAll());
     }

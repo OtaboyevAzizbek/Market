@@ -14,5 +14,6 @@ public interface ProductPurchasePriceService {
     ProductPurchasePriceDTO getProductPurchasePriceById(Long id);
     ProductPurchasePriceDTO getProductPurchasePriceByProduct(Product product);
     List<ProductPurchasePriceDTO> getProductPurchasePriceList();
+    List<ProductPurchasePriceDTO> getProductPurchaseListPriceByProductAndStatus(Product product);
     void deleteProductPurchasePriceById(Long id);
 }

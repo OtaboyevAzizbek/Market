@@ -25,6 +25,10 @@ public class Organization {
     String address;
     @Column(name = "phone_number",nullable = false)
     String phoneNumber;
+    @Column(name = "client_debt",nullable = false,columnDefinition = "FLOAT DEFAULT 0.0")
+    Float clientDebt;
+    @Column(name = "payment",nullable = false,columnDefinition = "FLOAT DEFAULT 0.0")
+    Float payment;
     @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
     List<InvoiceDocument> invoiceDocumentList;
 }

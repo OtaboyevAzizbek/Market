@@ -69,6 +69,34 @@
                 <td><span class="badge bg-warning">In progress</span></td>
                 <td class="d-none d-md-table-cell">William Harris</td>
             </tr>
+            <tr>
+                <td>Project Phoenix</td>
+                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                <td><span class="badge bg-success">Done</span></td>
+                <td class="d-none d-md-table-cell">William Harris</td>
+            </tr>
+            <tr>
+                <td>Project X</td>
+                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                <td><span class="badge bg-success">Done</span></td>
+                <td class="d-none d-md-table-cell">Sharon Lessman</td>
+            </tr>
+            <tr>
+                <td>Project Romeo</td>
+                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                <td><span class="badge bg-success">Done</span></td>
+                <td class="d-none d-md-table-cell">Christina Mason</td>
+            </tr>
+            <tr>
+                <td>Project Wombat</td>
+                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                <td><span class="badge bg-warning">In progress</span></td>
+                <td class="d-none d-md-table-cell">William Harris</td>
+            </tr>
             </tbody>
         </table>
         </div>

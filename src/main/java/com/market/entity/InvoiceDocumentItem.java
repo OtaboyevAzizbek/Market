@@ -27,6 +27,4 @@ public class InvoiceDocumentItem {
     Float amount;
     @Column(name = "purchase_price",nullable = false)
     Float purchasePrice;
-    @Column(name = "sell_price",nullable = false)
-    Float sellPrice;
 }

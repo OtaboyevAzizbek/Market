@@ -9,7 +9,10 @@
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.css" rel="stylesheet">
     <title>Market</title>
 </head>
-
+<% String active = "active"; %>
+<% String blank = ""; %>
+<% String marketMain = "/market/main"; %>
+<% String marketSettings = "/market/settings"; %>
 <body>
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
@@ -21,13 +24,18 @@
                 <li class="sidebar-header">
                     Pages
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/market/main">
+                <li class="sidebar-item <%=request.getRequestURI().toString().equals(marketMain) ? active: blank %>">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%><%=marketMain%>">
                         <i class="fa-solid fa-house mx-sm-1"></i> <span class="align-middle">Menu</span>
                     </a>
                 </li>
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="<%=request.getContextPath()%>/market/settings">
+                <li class="sidebar-item  <%=request.getRequestURI().toString().equals(marketSettings) ? active: blank %>">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%>/market/view_organizations_list">
+                        <i class="fa-solid fa-warehouse mx-sm-1"></i> <span class="align-middle">Omborxona</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  <%=request.getRequestURI().toString().equals(marketSettings) ? active: blank %>">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%><%=marketSettings%>">
                         <i class="fa-solid fa-gear mx-sm-1"></i> <span class="align-middle">Sozlamalar</span>
                     </a>
                 </li>

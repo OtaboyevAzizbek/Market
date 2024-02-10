@@ -11,15 +11,16 @@
         <table class="table table-hover my-0" id="categoryTable">
             <thead>
             <tr>
-                <th>Kategoriya ID</th>
+                <th>ID</th>
                 <th>Kategoriya nomi</th>
                 <th>Amallar</th>
             </tr>
             </thead>
             <tbody>
+            <% int count=1;%>
             <% for (CategoryDTO categoryDTO : categoryDTOList) {%>
             <tr>
-                <td><%=categoryDTO.getId()%></td>
+                <td><%=count++%></td>
                 <td><%=categoryDTO.getName()%></td>
                 <td>
                     <a href="<%=request.getContextPath()%>/market/view_category/<%=categoryDTO.getId()%>" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye mx-sm-1"></i>Ko'rish</a>

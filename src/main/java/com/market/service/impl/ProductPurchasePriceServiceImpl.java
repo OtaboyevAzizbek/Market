@@ -64,6 +64,11 @@ public class ProductPurchasePriceServiceImpl implements ProductPurchasePriceServ
     }
 
     @Override
+    public List<ProductPurchasePriceDTO> getProductPurchaseListPriceByProductAndStatus(Product product) {
+        return productPurchasePriceMapper.toDTOs(productBuyPriceRepository.findProductPurchasePricesByProductAndStatusTrue(product));
+    }
+
+    @Override
     public void deleteProductPurchasePriceById(Long id) {
         productBuyPriceRepository.deleteById(id);
     }

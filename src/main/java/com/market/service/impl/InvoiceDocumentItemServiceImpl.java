@@ -28,7 +28,6 @@ public class InvoiceDocumentItemServiceImpl implements InvoiceDocumentItemServic
         invoiceDocumentItem.setProduct(createInvoiceDocumentItemDTO.getProduct());
         invoiceDocumentItem.setAmount(createInvoiceDocumentItemDTO.getAmount());
         invoiceDocumentItem.setPurchasePrice(createInvoiceDocumentItemDTO.getPurchasePrice());
-        invoiceDocumentItem.setSellPrice(createInvoiceDocumentItemDTO.getSellPrice());
         return invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
     }
 
@@ -39,7 +38,6 @@ public class InvoiceDocumentItemServiceImpl implements InvoiceDocumentItemServic
         invoiceDocumentItem.setProduct(updateInvoiceDocumentItemDTO.getProduct());
         invoiceDocumentItem.setAmount(updateInvoiceDocumentItemDTO.getAmount());
         invoiceDocumentItem.setPurchasePrice(updateInvoiceDocumentItemDTO.getPurchasePrice());
-        invoiceDocumentItem.setSellPrice(updateInvoiceDocumentItemDTO.getSellPrice());
         return invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
     }
 

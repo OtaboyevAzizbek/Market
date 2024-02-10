@@ -13,6 +13,7 @@ public interface ProductSellPriceService {
     ProductSellPriceDTO updateProductSellPriceStatusByProduct(Product product);
     ProductSellPriceDTO getProductSellPriceById(Long id);
     ProductSellPriceDTO getProductSellPriceByProduct(Product product);
+    List<ProductSellPriceDTO> getProductSellPriceListByProductAndStatus(Product product);
     List<ProductSellPriceDTO> getProductSellPriceList();
     void deleteProductSellPriceById(Long id);
 }

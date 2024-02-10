@@ -7,15 +7,16 @@
         <table class="table table-hover my-0">
             <thead>
             <tr>
-                <th>Yuk xati ID</th>
+                <th>ID</th>
                 <th>Yuk xati raqami</th>
                 <th>Yuk xati sanasi</th>
             </tr>
             </thead>
             <tbody>
+            <% int count=1;%>
             <% for (InvoiceDocument invoiceDocument : organizationDTO.getInvoiceDocumentList()) {%>
             <tr>
-                <td><%=invoiceDocument.getId()%></td>
+                <td><%=count++%></td>
                 <td><%=invoiceDocument.getDocumentNumber()%></td>
                 <td><%=invoiceDocument.getTimestamp()%></td>
             </tr>

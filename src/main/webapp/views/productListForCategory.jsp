@@ -7,15 +7,16 @@
         <table class="table table-hover my-0">
             <thead>
             <tr>
-                <th>Mahsulot ID</th>
+                <th>ID</th>
                 <th>Mahsulot nomi</th>
                 <th>O'lchov birligi</th>
             </tr>
             </thead>
             <tbody>
+            <% int count=1;%>
             <% for (Product product : categoryDTO.getProductList()) {%>
             <tr>
-                <td><%=product.getId()%></td>
+                <td><%=count++%></td>
                 <td><%=product.getName()%></td>
                 <td><%=product.getUnitType().getName()%></td>
             </tr>

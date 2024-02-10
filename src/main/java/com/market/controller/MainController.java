@@ -4,6 +4,7 @@ import com.market.dto.category.CreateCategoryDTO;
 import com.market.dto.category.UpdateCategoryDTO;
 import com.market.dto.invoiceDocument.CreateInvoiceDocumentDTO;
 import com.market.dto.invoiceDocument.UpdateInvoiceDocumentDTO;
+import com.market.dto.invoiceDocumentItem.CreateInvoiceDocumentItemDTO;
 import com.market.dto.organization.CreateOrganizationDTO;
 import com.market.dto.organization.UpdateOrganizationDTO;
 import com.market.dto.product.CreateProductDTO;
@@ -15,15 +16,14 @@ import com.market.dto.productSellPrice.CreateProductSellPriceDTO;
 import com.market.dto.productSellPrice.ProductSellPriceDTO;
 import com.market.dto.unitType.CreateUnitTypeDTO;
 import com.market.dto.unitType.UpdateUnitTypeDTO;
-import com.market.entity.Category;
-import com.market.entity.Organization;
-import com.market.entity.Product;
-import com.market.entity.UnitType;
+import com.market.entity.*;
 import com.market.helper.Helper;
 import com.market.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/market")
@@ -129,6 +129,15 @@ public class MainController {
     public ModelAndView viewOrganizationList(){
         ModelAndView modelAndView = new ModelAndView("organization");
         modelAndView.addObject("organizationList",organizationService.getOrganizationList());
+        modelAndView.addObject("status",0);
+        return modelAndView;
+    }
+
+    @GetMapping("/view_organizations_list")
+    public ModelAndView viewOrganizationListForWarehouse(){
+        ModelAndView modelAndView = new ModelAndView("organization");
+        modelAndView.addObject("organizationList",organizationService.getOrganizationList());
+        modelAndView.addObject("status",1);
         return modelAndView;
     }
 
@@ -246,11 +255,27 @@ public class MainController {
         return modelAndView;
     }
 
+    @PostMapping("/create_invoice_document_item")
+    public ModelAndView createInvoiceDocumentItem(@RequestParam("invoiceDocId") Long invoiceDocId, @RequestParam("productId") Long productId,@RequestParam("amount") Float amount){
+        List<ProductPurchasePriceDTO> purchasePriceDTOS = productPurchasePriceService.getProductPurchaseListPriceByProductAndStatus(Product.builder().id(productId).build());
+        Float purchasePrice = purchasePriceDTOS.get(purchasePriceDTOS.size()-1).getPrice();
+        invoiceDocumentItemService.createInvoiceDocumentItem(new CreateInvoiceDocumentItemDTO(InvoiceDocument.builder().id(invoiceDocId).build(), Product.builder().id(productId).build(),amount,purchasePrice));
+        return new ModelAndView("redirect:/market/view_invoice_document_items");
+    }
+
+    @GetMapping("/view_invoice_document_item/{id}")
+    public ModelAndView viewInvoiceDocumentItem(@PathVariable("id") Long id){
+        ModelAndView modelAndView = new ModelAndView("invoiceDocumentItemForInvoiceDoc");
+        modelAndView.addObject("invoiceDocumentItemList",invoiceDocumentService.getInvoiceDocumentById(id).getInvoiceDocumentItemList());
+        return modelAndView;
+    }
+
     @GetMapping("/view_invoice_document_items")
     public ModelAndView viewInvoiceDocumentItemList(){
         ModelAndView modelAndView = new ModelAndView("invoiceDocumentItem");
         modelAndView.addObject("invoiceDocumentItemList",invoiceDocumentItemService.getInvoiceDocumentItemList());
         modelAndView.addObject("invoiceDocumentList",invoiceDocumentService.getInvoiceDocumentList());
+        modelAndView.addObject("productList",productService.getProductList());
         return modelAndView;
     }
 }

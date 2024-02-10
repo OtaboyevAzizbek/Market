@@ -21,6 +21,7 @@
 </footer>
 </div>
 </div>
+<script src="<%=request.getContextPath()%>/js/datatables.init.js"></script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/app.js"></script>
 <script src="<%=request.getContextPath()%>/js/all.js"></script>

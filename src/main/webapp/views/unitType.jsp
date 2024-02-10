@@ -11,15 +11,16 @@
         <table class="table table-hover my-0" id="unitTypeTable">
             <thead>
             <tr>
-                <th>O'chov birligi ID</th>
+                <th>ID</th>
                 <th>O'chov birligi nomi</th>
 <%--                <th>Amallar</th>--%>
             </tr>
             </thead>
             <tbody>
+            <% int count=1;%>
             <% for (UnitTypeDTO unitTypeDTO : unitTypeDTOList) {%>
             <tr>
-                <td><%=unitTypeDTO.getId()%></td>
+                <td><%=count++%></td>
                 <td><%=unitTypeDTO.getName()%></td>
 <%--                <td>--%>
 <%--                    <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-a<%=unitTypeDTO.getId()%>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square mx-sm-1"></i>O'zgartirish</button>--%>

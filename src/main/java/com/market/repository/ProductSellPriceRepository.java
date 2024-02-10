@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ProductSellPriceRepository extends JpaRepository<ProductSellPrice,Long> {
     List<ProductSellPrice> findProductSellPricesByProduct(Product product);
+    List<ProductSellPrice> findProductSellPricesByProductAndStatusTrue(Product product);
 }

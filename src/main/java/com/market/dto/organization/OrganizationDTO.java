@@ -18,5 +18,7 @@ public class OrganizationDTO {
     String name;
     String address;
     String phoneNumber;
+    Float clientDebt;
+    Float payment;
     List<InvoiceDocument> invoiceDocumentList;
 }

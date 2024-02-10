@@ -12,10 +12,13 @@
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
         <div class="card-body">
-        <table class="table table-hover my-0" id="productTable">
+            <div id="datatable-buttons_wrapper">
+
+            </div>
+        <table class="table table-hover my-0" id="datatable-buttons">
             <thead>
             <tr>
-                <th>Mahsulot ID</th>
+                <th>ID</th>
                 <th>Mahsulot nomi</th>
                 <th>Mahsulot qoldig'i</th>
                 <th>O'lchov birligi</th>
@@ -24,9 +27,10 @@
             </tr>
             </thead>
             <tbody>
+            <% int count=1;%>
             <% for (ProductDTO productDTO : productDTOList) {%>
             <tr>
-                <td><%=productDTO.getId()%></td>
+                <td><%=count++%></td>
                 <td><%=productDTO.getName()%></td>
                 <td><%=productDTO.getTotalAmount()%></td>
                 <td><%=productDTO.getUnitType().getName()%></td>

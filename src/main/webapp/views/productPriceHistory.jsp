@@ -15,9 +15,10 @@
             </tr>
             </thead>
             <tbody>
+            <% int count=1;%>
             <% for (ProductPurchasePrice purchasePriceDTO : productDTO.getProductPurchasePriceList()) {%>
             <tr>
-                <td><%=purchasePriceDTO.getId()%></td>
+                <td><%=count++%></td>
                 <td><%=purchasePriceDTO.getPrice()%></td>
                 <td><%=purchasePriceDTO.getTimestamp()%></td>
             </tr>
@@ -37,9 +38,10 @@
             </tr>
             </thead>
             <tbody>
+            <% int count1=1;%>
             <% for (ProductSellPrice productSellPrice : productDTO.getProductSellPriceList()) {%>
             <tr>
-                <td><%=productSellPrice.getId()%></td>
+                <td><%=count1++%></td>
                 <td><%=productSellPrice.getPrice()%></td>
                 <td><%=productSellPrice.getTimestamp()%></td>
             </tr>

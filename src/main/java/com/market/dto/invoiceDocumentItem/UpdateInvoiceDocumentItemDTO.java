@@ -17,5 +17,4 @@ public class UpdateInvoiceDocumentItemDTO {
     Product product;
     Float amount;
     Float purchasePrice;
-    Float sellPrice;
 }
