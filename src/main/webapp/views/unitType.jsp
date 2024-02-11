@@ -2,9 +2,9 @@
 <%@ page import="java.util.List" %>
 <%@ include file="header.jsp"%>
 <%List<UnitTypeDTO> unitTypeDTOList = (List<UnitTypeDTO>) request.getAttribute("unitTypeList");%>
-<%--<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">--%>
-<%--    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target=".bd-example-modal-c" type="button"><i class="fa-solid fa-plus mx-sm-1"></i>O'lchov birligi qo'shish</button>--%>
-<%--</div>--%>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
+    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target=".bd-example-modal-c" type="button"><i class="fa-solid fa-plus mx-sm-1"></i>O'lchov birligi qo'shish</button>
+</div>
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
         <div class="card-body">
@@ -22,10 +22,10 @@
             <tr>
                 <td><%=count++%></td>
                 <td><%=unitTypeDTO.getName()%></td>
-<%--                <td>--%>
-<%--                    <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-a<%=unitTypeDTO.getId()%>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square mx-sm-1"></i>O'zgartirish</button>--%>
-<%--                    <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-b<%=unitTypeDTO.getId()%>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can mx-sm-1"></i>O'chirish</button>--%>
-<%--                </td>--%>
+                <td>
+                    <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-a<%=unitTypeDTO.getId()%>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square mx-sm-1"></i>O'zgartirish</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-b<%=unitTypeDTO.getId()%>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can mx-sm-1"></i>O'chirish</button>
+                </td>
                 <%--Modal for delete--%>
                 <div class="modal fade bd-example-modal-b<%=unitTypeDTO.getId()%>" tabindex="-1">
                     <div class="modal-dialog">
