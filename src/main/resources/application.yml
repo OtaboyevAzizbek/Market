@@ -12,3 +12,5 @@ spring:
     view:
       prefix: /views/
       suffix: .jsp
+server:
+  port: 8282
