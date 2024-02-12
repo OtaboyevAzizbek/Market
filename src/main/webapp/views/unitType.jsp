@@ -13,7 +13,7 @@
             <tr>
                 <th>ID</th>
                 <th>O'chov birligi nomi</th>
-<%--                <th>Amallar</th>--%>
+                <th>Amallar</th>
             </tr>
             </thead>
             <tbody>

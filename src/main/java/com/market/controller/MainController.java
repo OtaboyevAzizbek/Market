@@ -221,17 +221,14 @@ public class MainController {
     }
 
     @PostMapping("/create_invoice_document")
-    public ModelAndView createInvoiceDocument(@RequestParam("date") String date, @RequestParam("organizationId") Long organizationId){
-        String docNumber = "AC_DOC_"+date.replace("T","_");
-        invoiceDocumentService.createInvoiceDocument(new CreateInvoiceDocumentDTO(docNumber, Organization.builder().id(organizationId).build(),helper.convertDatetimeToTimestamp(date.replace("T"," "))));
+    public ModelAndView createInvoiceDocument(@RequestParam("date") String date,@RequestParam("docNum") String docNum, @RequestParam("organizationId") Long organizationId){
+        invoiceDocumentService.createInvoiceDocument(new CreateInvoiceDocumentDTO(docNum, Organization.builder().id(organizationId).build(),helper.convertDatetimeToTimestamp(date.replace("T"," "))));
         return new ModelAndView("redirect:/market/view_invoice_documents");
     }
 
     @PostMapping("/update_invoice_document")
-    public ModelAndView updateInvoiceDocument(@RequestParam("id") Long id,@RequestParam("date") String date, @RequestParam("organizationId") Long organizationId){
-        String docNumber = "AC_DOC_"+date.replace("T","_");
-        System.out.println(date);
-        invoiceDocumentService.updateInvoiceDocumentById(id,new UpdateInvoiceDocumentDTO(docNumber, Organization.builder().id(organizationId).build(),helper.convertDatetimeToTimestamp(date.replace("T"," "))));
+    public ModelAndView updateInvoiceDocument(@RequestParam("id") Long id,@RequestParam("docNum") String docNum,@RequestParam("date") String date, @RequestParam("organizationId") Long organizationId){
+        invoiceDocumentService.updateInvoiceDocumentById(id,new UpdateInvoiceDocumentDTO(docNum, Organization.builder().id(organizationId).build(),helper.convertDatetimeToTimestamp(date.replace("T"," "))));
         return new ModelAndView("redirect:/market/view_invoice_documents");
     }
 

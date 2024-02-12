@@ -146,7 +146,7 @@
                     <td><%=organizationDTO.getClientDebt()%></td>
                     <td><%=organizationDTO.getPayment()%></td>
                     <td>
-                        <a href="<%=request.getContextPath()%>/market/view_organization/<%=organizationDTO.getId()%>" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye mx-sm-1"></i>Ko'rish</a>
+                        <a href="<%=request.getContextPath()%>/market/view_organization/<%=organizationDTO.getId()%>" class="btn btn-primary btn-sm"><i class="fa-solid fa-warehouse mx-sm-1"></i>Kirim</a>
 <%--                        <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-a<%=organizationDTO.getId()%>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square mx-sm-1"></i>O'zgartirish</button>--%>
 <%--                        <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-b<%=organizationDTO.getId()%>" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can mx-sm-1"></i>O'chirish</button>--%>
                     </td>

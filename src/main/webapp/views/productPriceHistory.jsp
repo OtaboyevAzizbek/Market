@@ -4,7 +4,7 @@
 <%@ include file="header.jsp"%>
 <%ProductDTO productDTO = (ProductDTO) request.getAttribute("product");%>
 <div class="row">
-<div class="col-12 col-lg-6 col-xxl-9 d-flex">
+<div class="col-12 col-lg-6 col-xxl-9">
     <div class="card flex-fill">
         <table class="table table-hover my-0">
             <thead>
@@ -27,7 +27,7 @@
         </table>
     </div>
 </div>
-<div class="col-12 col-lg-6 col-xxl-9 d-flex">
+<div class="col-12 col-lg-6 col-xxl-9">
     <div class="card flex-fill">
         <table class="table table-hover my-0">
             <thead>

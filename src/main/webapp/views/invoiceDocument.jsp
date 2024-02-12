@@ -101,6 +101,10 @@
             <form action="create_invoice_document" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label for="exampleDocNumber2" class="form-label">Yuk xati raqami</label>
+                        <input type="text" name="docNum" class="form-control" id="exampleDocNumber2" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleOrganization" class="form-label">Tashkilot nomi</label>
                         <select name="organizationId" id="exampleOrganization" class="form-control" required>
                             <option value="" selected>Tashkilotni tanlang</option>
