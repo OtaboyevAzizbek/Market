@@ -1,6 +1,6 @@
 spring:
-  main:
-    web-application-type: none
+#  main:
+#    web-application-type: none
   datasource:        # JDBC Configuration
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/market
