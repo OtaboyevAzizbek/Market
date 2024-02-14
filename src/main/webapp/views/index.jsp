@@ -2,7 +2,7 @@
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
         <div class="card-body">
-        <table class="table table-hover my-0" id="example3">
+        <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
                 <th>Name</th>
@@ -102,23 +102,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready( function () {
-        $("#example3").DataTable({
-            "oLanguage": {
-                "sSearch": "Qidiruv:",
-                "sInfo": "_TOTAL_ ta ma'lumotdan (_START_ dan _END_) tagachasi ko'rsatildi.",
-                "sLengthMenu": "_MENU_ ta natijani ko'rsatish rejimi",
-                "sZeroRecords": "Bunday ma'lumot topilmadi!",
-                "sInfoFiltered": "_MAX_ ta ma'lumotdan saralandi.",
-                "sInfoEmpty": "Bironta ham ma'lumot topilmadi! ",
-                "sEmptyTable": "Jadvalda ma'lumotlar mavjud emas!",
-                "oPaginate": {
-                    "sPrevious": "Oldingi sahifa",
-                    "sNext": "Keyingi sahifa"
-                }
-            }
-        });
-    } );
-</script>
 <%@ include file="footer.jsp"%>

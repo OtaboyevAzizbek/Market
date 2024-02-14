@@ -4,7 +4,8 @@
 <%CategoryDTO categoryDTO = (CategoryDTO) request.getAttribute("category");%>
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
-        <table class="table table-hover my-0">
+        <div class="card-body">
+        <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
                 <th>ID</th>
@@ -23,6 +24,7 @@
             <%}%>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 <%@ include file="footer.jsp"%>

@@ -12,7 +12,7 @@
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
         <div class="card-body">
-        <table class="table table-hover my-0" id="invoiceDocumentItemTable">
+        <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
                 <th>ID</th>
@@ -57,14 +57,14 @@
                         <select name="invoiceDocId" id="exampleInvoiceDocItem2" class="form-control" required>
                             <option value="" selected>Yuk xatini tanlang</option>
                             <% for (InvoiceDocumentDTO invoiceDocumentDTO : invoiceDocumentDTOList) {%>
-                            <option value="<%=invoiceDocumentDTO.getId()%>"><%=invoiceDocumentDTO.getOrganization().getName()%> || <%=invoiceDocumentDTO.getDocumentNumber()%></option>
+                            <option value="<%=invoiceDocumentDTO.getId()%>"><%=invoiceDocumentDTO.getOrganization().getName()%> || № <%=invoiceDocumentDTO.getDocumentNumber()%></option>
                             <%}%>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInvoiceDocItemProduct2" class="form-label">Mahsulot nomi</label>
                         <select name="productId" id="exampleInvoiceDocItemProduct2" class="form-control" required>
-                            <option value="" selected>Yuk xatini tanlang</option>
+                            <option value="" selected>Mahsulot tanlang</option>
                             <% for (ProductDTO productDTO : productDTOList) {%>
                             <option value="<%=productDTO.getId()%>"><%=productDTO.getName()%></option>
                             <%}%>
@@ -82,23 +82,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready( function () {
-        $("#invoiceDocumentItemTable").DataTable({
-            "oLanguage": {
-                "sSearch": "Qidiruv:",
-                "sInfo": "_TOTAL_ ta ma'lumotdan (_START_ dan _END_) tagachasi ko'rsatildi.",
-                "sLengthMenu": "_MENU_ ta natijani ko'rsatish rejimi",
-                "sZeroRecords": "Bunday ma'lumot topilmadi!",
-                "sInfoFiltered": "_MAX_ ta ma'lumotdan saralandi.",
-                "sInfoEmpty": "Bironta ham ma'lumot topilmadi! ",
-                "sEmptyTable": "Jadvalda ma'lumotlar mavjud emas!",
-                "oPaginate": {
-                    "sPrevious": "Oldingi sahifa",
-                    "sNext": "Keyingi sahifa"
-                }
-            }
-        });
-    } );
-</script>
 <%@ include file="footer.jsp"%>

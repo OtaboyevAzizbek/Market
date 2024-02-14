@@ -23,6 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -82,7 +85,7 @@ public class MainController {
 
     @GetMapping("/view_category/{id}")
     public ModelAndView viewCategory(@PathVariable("id") Long id){
-        ModelAndView modelAndView = new ModelAndView("productListForCategory");
+        ModelAndView modelAndView = new ModelAndView("viewCategory");
         modelAndView.addObject("category",categoryService.getCategoryById(id));
         return modelAndView;
     }
@@ -114,8 +117,10 @@ public class MainController {
 
     @GetMapping("/view_organization/{id}")
     public ModelAndView viewOrganization(@PathVariable("id") Long id){
-        ModelAndView modelAndView = new ModelAndView("invoiceListForOrganization");
+        ModelAndView modelAndView = new ModelAndView("viewOrganization");
         modelAndView.addObject("organization",organizationService.getOrganizationById(id));
+        System.out.println("Date >>>> "+LocalDate.now().toString());
+        modelAndView.addObject("invoiceDocumentList",invoiceDocumentService.getInvoiceDocumentListByIntervalDate(Timestamp.valueOf(LocalDate.now().toString().concat(" 00:00:01")),Timestamp.valueOf(LocalDate.now().toString().concat(" 23:59:59"))));
         return modelAndView;
     }
 
@@ -129,15 +134,13 @@ public class MainController {
     public ModelAndView viewOrganizationList(){
         ModelAndView modelAndView = new ModelAndView("organization");
         modelAndView.addObject("organizationList",organizationService.getOrganizationList());
-        modelAndView.addObject("status",0);
         return modelAndView;
     }
 
     @GetMapping("/view_organizations_list")
     public ModelAndView viewOrganizationListForWarehouse(){
-        ModelAndView modelAndView = new ModelAndView("organization");
+        ModelAndView modelAndView = new ModelAndView("menuOrganization");
         modelAndView.addObject("organizationList",organizationService.getOrganizationList());
-        modelAndView.addObject("status",1);
         return modelAndView;
     }
 
@@ -262,7 +265,7 @@ public class MainController {
 
     @GetMapping("/view_invoice_document_item/{id}")
     public ModelAndView viewInvoiceDocumentItem(@PathVariable("id") Long id){
-        ModelAndView modelAndView = new ModelAndView("invoiceDocumentItemForInvoiceDoc");
+        ModelAndView modelAndView = new ModelAndView("viewInvoiceDocumentItem");
         modelAndView.addObject("invoiceDocumentItemList",invoiceDocumentService.getInvoiceDocumentById(id).getInvoiceDocumentItemList());
         return modelAndView;
     }

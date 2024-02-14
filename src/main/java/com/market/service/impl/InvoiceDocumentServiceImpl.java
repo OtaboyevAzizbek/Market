@@ -10,6 +10,7 @@ import com.market.service.InvoiceDocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -47,6 +48,11 @@ public class InvoiceDocumentServiceImpl implements InvoiceDocumentService {
     @Override
     public List<InvoiceDocumentDTO> getInvoiceDocumentList() {
         return invoiceDocumentMapper.toDTOs(invoiceDocumentRepository.findAll());
+    }
+
+    @Override
+    public List<InvoiceDocumentDTO> getInvoiceDocumentListByIntervalDate(Timestamp begin, Timestamp end) {
+        return invoiceDocumentMapper.toDTOs(invoiceDocumentRepository.findAllByTimestampBetween(begin,end));
     }
 
     @Override

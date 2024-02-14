@@ -8,7 +8,29 @@
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
         <div class="card-body">
-        <table class="table table-hover my-0" id="categoryTable">
+<%--            <div class="row">--%>
+<%--                <div class="col-sm-12 col-md-6">--%>
+<%--                    <div class="dataTables_length" id="DataTables_Table_0_length">--%>
+<%--                        <label>--%>
+<%--                            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select form-select-sm">--%>
+<%--                                <option value="10">10</option>--%>
+<%--                                <option value="25">25</option>--%>
+<%--                                <option value="50">50</option>--%>
+<%--                                <option value="100">100</option>--%>
+<%--                            </select>--%>
+<%--                        </label> ta natijani ko'rish rejimi--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="col-sm-12 col-md-6">--%>
+<%--                    <div id="DataTables_Table_0_filter" class="d-flex justify-content-end">--%>
+<%--                        <span class="d-flex align-items-center me-1">Qidiruv:</span>--%>
+<%--                        <label>--%>
+<%--                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0">--%>
+<%--                        </label>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+        <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
                 <th>ID</th>
@@ -72,6 +94,34 @@
             <%}%>
             </tbody>
         </table>
+<%--            <div class="row">--%>
+<%--                <div class="col-sm-12 col-md-5">--%>
+<%--                    <div class="" id="categoryTable_info" role="status" aria-live="polite">--%>
+<%--                        <span >3 ta ma'lumotdan (1 dan 3) tagachasi ko'rsatildi.</span>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="col-sm-12 col-md-7">--%>
+<%--                    <div class="d-flex justify-content-end" id="categoryTable_paginate">--%>
+<%--                        <ul class="pagination">--%>
+<%--                            <li class="paginate_button page-item previous disabled" id="categoryTable_previous">--%>
+<%--                                <a aria-controls="categoryTable" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">--%>
+<%--                                    Oldingi sahifa--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+<%--                            <li class="paginate_button page-item active">--%>
+<%--                                <a href="#" aria-controls="categoryTable" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">--%>
+<%--                                    1--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+<%--                            <li class="paginate_button page-item next disabled" id="categoryTable_next">--%>
+<%--                                <a aria-controls="categoryTable" aria-disabled="true" role="link" data-dt-idx="next" tabindex="-1" class="page-link">--%>
+<%--                                    Keyingi sahifa--%>
+<%--                                </a>--%>
+<%--                            </li>--%>
+<%--                        </ul>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
     </div>
 </div>
@@ -97,23 +147,4 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready( function () {
-        $("#categoryTable").DataTable({
-            "oLanguage": {
-                "sSearch": "Qidiruv:",
-                "sInfo": "_TOTAL_ ta ma'lumotdan (_START_ dan _END_) tagachasi ko'rsatildi.",
-                "sLengthMenu": "_MENU_ ta natijani ko'rsatish rejimi",
-                "sZeroRecords": "Bunday ma'lumot topilmadi!",
-                "sInfoFiltered": "_MAX_ ta ma'lumotdan saralandi.",
-                "sInfoEmpty": "Bironta ham ma'lumot topilmadi! ",
-                "sEmptyTable": "Jadvalda ma'lumotlar mavjud emas!",
-                "oPaginate": {
-                    "sPrevious": "Oldingi sahifa",
-                    "sNext": "Keyingi sahifa"
-                }
-            }
-        });
-    } );
-</script>
 <%@ include file="footer.jsp"%>
