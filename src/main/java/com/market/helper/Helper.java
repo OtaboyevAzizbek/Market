@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -20,6 +21,6 @@ public class Helper {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return timestamp;
+        return timestamp == null ? Timestamp.valueOf(LocalDateTime.now()) : timestamp;
     }
 }

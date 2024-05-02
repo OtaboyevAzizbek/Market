@@ -2,6 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.market.dto.category.CategoryDTO" %>
 <%@ page import="com.market.dto.unitType.UnitTypeDTO" %>
+<%@ page import="com.market.status.ProductPriceType" %>
+<%@ page import="com.market.status.ProductPriceStatus" %>
 <%@ include file="header.jsp"%>
 <%List<ProductDTO> productDTOList = (List<ProductDTO>) request.getAttribute("productList");%>
 <%List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) request.getAttribute("categoryList");%>
@@ -18,12 +20,13 @@
         <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Mahsulot nomi</th>
-                <th>Mahsulot qoldig'i</th>
-                <th>O'lchov birligi</th>
-                <th>Kategoriya nomi</th>
-                <th>Amallar</th>
+                <th style="width:3%;">ID</th>
+                <th style="width:25%;">Mahsulot nomi</th>
+                <th style="width:10%;">Magazine qoldig'i</th>
+                <th style="width:10%;">Omborxona qoldig'i</th>
+                <th style="width:10%;">O'lchov birligi</th>
+                <th style="width:10%;">Kategoriya nomi</th>
+                <th style="width:32%;">Amallar</th>
             </tr>
             </thead>
             <tbody>
@@ -32,7 +35,8 @@
             <tr>
                 <td><%=count++%></td>
                 <td><%=productDTO.getName()%></td>
-                <td><%=productDTO.getTotalAmount()%></td>
+                <td><%=productDTO.getStoreAmount()%></td>
+                <td><%=productDTO.getWarehouseAmount()%></td>
                 <td><%=productDTO.getUnitType().getName()%></td>
                 <td><%=productDTO.getCategory().getName()%></td>
                 <td>
@@ -93,11 +97,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleBuyPrice" class="form-label">Xarid narxi</label>
-                                        <input type="text" name="purchasePrice"  value="<%=productDTO.getProductPurchasePriceList().get(productDTO.getProductPurchasePriceList().size()-1).getPrice()%>" class="form-control" id="exampleBuyPrice" required>
+                                        <input type="text" name="purchasePrice"  value="<%=productDTO.getBuyPrice()%>" class="form-control" id="exampleBuyPrice" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleSellPrice" class="form-label">Sotuv narxi</label>
-                                        <input type="text" name="sellPrice"  value="<%=productDTO.getProductSellPriceList().get(productDTO.getProductSellPriceList().size()-1).getPrice()%>" class="form-control" id="exampleSellPrice" required>
+                                        <input type="text" name="sellPrice" value="<%=productDTO.getSellPrice()%>" class="form-control" id="exampleSellPrice" required>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
@@ -126,7 +130,10 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleProductName2" class="form-label">Mahsulot nomi</label>
-                        <input type="text" name="name" class="form-control" id="exampleProductName2" required>
+                        <input type="text" name="name" class="form-control" onchange="checkProductNameAJAX(this.value)" id="exampleProductName2" required>
+                        <div id="validationServerFeedback" class="invalid-feedback">
+                            Bu nomdagi mahsulot allaqachon mavjud!
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleCategory2" class="form-label">Mahsulot kategoriyasi</label>
@@ -156,10 +163,35 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                        <button type="submit" id="saveButton" class="btn btn-success btn-sm">Saqlash</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function checkProductNameAJAX(value){
+            $.ajax({
+                contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                url: '/market/check_product',
+                type: "POST",
+                data: {
+                    name:value
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data===true) {
+                        $("#exampleProductName2").addClass("is-invalid");
+                        $("#saveButton").prop('disabled', true);
+                    }else {
+                        $("#exampleProductName2").removeClass("is-invalid");
+                        $("#saveButton").prop('disabled', false);
+                    }
+                },
+                error: function () {
+                    alert("Xatolik yuz berdi");
+                }
+            })
+    }
+</script>
 <%@ include file="footer.jsp"%>

@@ -42,7 +42,7 @@
 </script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath()%>/js/app.js"></script>
-<script src="<%=request.getContextPath()%>/js/all.js"></script>
+<script src="<%=request.getContextPath()%>/js/all.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.js"></script>
 </body>
 </html>

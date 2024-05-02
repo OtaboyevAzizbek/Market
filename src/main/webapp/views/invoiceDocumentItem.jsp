@@ -34,7 +34,7 @@
                 <td><%=documentItemDTO.getProduct().getName()%></td>
                 <td><%=documentItemDTO.getAmount()%></td>
                 <td><%=documentItemDTO.getProduct().getUnitType().getName()%></td>
-                <td><%=documentItemDTO.getPurchasePrice()%></td>
+<%--                <td><%=documentItemDTO.getPurchasePrice()%></td>--%>
             </tr>
             <%}%>
             </tbody>

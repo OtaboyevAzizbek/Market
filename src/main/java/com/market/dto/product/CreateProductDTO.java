@@ -16,5 +16,4 @@ public class CreateProductDTO {
     String name;
     UnitType unitType;
     Category category;
-    Float totalAmount;
 }

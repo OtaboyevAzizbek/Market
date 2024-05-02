@@ -10,6 +10,8 @@ import com.market.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,12 +47,19 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
+    public OrganizationDTO getOrganizationByName(String name) {
+        return organizationMapper.toDTO(organizationRepository.findFirstByNameEqualsIgnoreCase(name));
+    }
+
+    @Override
     public List<OrganizationDTO> getOrganizationList() {
-        return organizationMapper.toDTOs(organizationRepository.findAll());
+        return organizationMapper.toDTOs(organizationRepository.findAllByDeletedTimeIsNullOrderByIdDesc());
     }
 
     @Override
     public void deleteOrganizationById(Long id) {
-        organizationRepository.deleteById(id);
+        Organization organization = organizationRepository.getReferenceById(id);
+        organization.setDeletedTime(Timestamp.valueOf(LocalDateTime.now()));
+        organizationRepository.save(organization);
     }
 }

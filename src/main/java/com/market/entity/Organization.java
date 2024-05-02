@@ -3,7 +3,9 @@ package com.market.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -25,10 +27,13 @@ public class Organization {
     String address;
     @Column(name = "phone_number",nullable = false)
     String phoneNumber;
-    @Column(name = "client_debt")
-    Float clientDebt = 0f;
-    @Column(name = "payment")
-    Float payment = 0f;
+    @CreationTimestamp
+    @Column(name = "created_time",nullable = false,updatable = false)
+    Timestamp timestamp;
+    @Column(name = "deleted_time")
+    Timestamp deletedTime;
+    @OneToOne(mappedBy = "organization",cascade = CascadeType.ALL)
+    OrganizationCalculate organizationCalculate;
     @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
     List<InvoiceDocument> invoiceDocumentList;
 }

@@ -8,28 +8,6 @@
 <div class="col-12 col-lg-12 col-xxl-9 d-flex">
     <div class="card flex-fill">
         <div class="card-body">
-<%--            <div class="row">--%>
-<%--                <div class="col-sm-12 col-md-6">--%>
-<%--                    <div class="dataTables_length" id="DataTables_Table_0_length">--%>
-<%--                        <label>--%>
-<%--                            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select form-select-sm">--%>
-<%--                                <option value="10">10</option>--%>
-<%--                                <option value="25">25</option>--%>
-<%--                                <option value="50">50</option>--%>
-<%--                                <option value="100">100</option>--%>
-<%--                            </select>--%>
-<%--                        </label> ta natijani ko'rish rejimi--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-sm-12 col-md-6">--%>
-<%--                    <div id="DataTables_Table_0_filter" class="d-flex justify-content-end">--%>
-<%--                        <span class="d-flex align-items-center me-1">Qidiruv:</span>--%>
-<%--                        <label>--%>
-<%--                            <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0">--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
         <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
@@ -80,11 +58,14 @@
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="exampleCategoryName" class="form-label">Kategoriya nomi</label>
-                                        <input type="text" name="name" class="form-control" id="exampleCategoryName" value="<%=categoryDTO.getName()%>" required>
+                                        <input type="text" name="name" class="form-control exampleCategoryName2" onchange="checkCategoryNameAJAX(this.value,<%=categoryDTO.getId()%>)" id="exampleCategoryName" value="<%=categoryDTO.getName()%>" required>
+                                        <div id="validationServerFeedback2" class="invalid-feedback">
+                                            Bu nomdagi kategoriya allaqachon mavjud!
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
-                                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                                        <button type="submit" class="btn btn-success btn-sm saveButton">Saqlash</button>
                                     </div>
                             </form>
                         </div>
@@ -94,34 +75,6 @@
             <%}%>
             </tbody>
         </table>
-<%--            <div class="row">--%>
-<%--                <div class="col-sm-12 col-md-5">--%>
-<%--                    <div class="" id="categoryTable_info" role="status" aria-live="polite">--%>
-<%--                        <span >3 ta ma'lumotdan (1 dan 3) tagachasi ko'rsatildi.</span>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-sm-12 col-md-7">--%>
-<%--                    <div class="d-flex justify-content-end" id="categoryTable_paginate">--%>
-<%--                        <ul class="pagination">--%>
-<%--                            <li class="paginate_button page-item previous disabled" id="categoryTable_previous">--%>
-<%--                                <a aria-controls="categoryTable" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">--%>
-<%--                                    Oldingi sahifa--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="paginate_button page-item active">--%>
-<%--                                <a href="#" aria-controls="categoryTable" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">--%>
-<%--                                    1--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                            <li class="paginate_button page-item next disabled" id="categoryTable_next">--%>
-<%--                                <a aria-controls="categoryTable" aria-disabled="true" role="link" data-dt-idx="next" tabindex="-1" class="page-link">--%>
-<%--                                    Keyingi sahifa--%>
-<%--                                </a>--%>
-<%--                            </li>--%>
-<%--                        </ul>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
         </div>
     </div>
 </div>
@@ -136,15 +89,44 @@
             <form action="create_category" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="exampleCategoryName2" class="form-label">Kategoriya nomi</label>
-                        <input type="text" name="name" class="form-control" id="exampleCategoryName2" required>
+                        <label for="exampleCategoryName3" class="form-label">Kategoriya nomi</label>
+                        <input type="text" name="name" class="form-control exampleCategoryName2" onchange="checkCategoryNameAJAX(this.value)" id="exampleCategoryName3" required>
+                        <div id="validationServerFeedback" class="invalid-feedback">
+                            Bu nomdagi kategoriya allaqachon mavjud!
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                        <button type="submit" class="btn btn-success btn-sm saveButton">Saqlash</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function checkCategoryNameAJAX(value,value2){
+        $.ajax({
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            url: '/market/check_category',
+            type: "POST",
+            data: {
+                name:value,
+                id:value2
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data === true) {
+                    $(".exampleCategoryName2").addClass("is-invalid");
+                    $(".saveButton").prop('disabled', true);
+                }else {
+                    $(".exampleCategoryName2").removeClass("is-invalid");
+                    $(".saveButton").prop('disabled', false);
+                }
+            },
+            error: function () {
+                alert("Xatolik yuz berdi");
+            }
+        })
+    }
+</script>
 <%@ include file="footer.jsp"%>

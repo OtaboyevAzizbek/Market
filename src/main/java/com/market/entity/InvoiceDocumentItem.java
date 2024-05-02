@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -25,6 +27,12 @@ public class InvoiceDocumentItem {
     Product product;
     @Column(name = "product_amount",nullable = false)
     Float amount;
-    @Column(name = "purchase_price",nullable = false)
-    Float purchasePrice;
+    @Column(name = "product_price",nullable = false)
+    Float productPrice;
+    @Column(name = "total_amount",nullable = false)
+    Float totalAmount;
+    @OneToMany(mappedBy = "invoiceDocumentItem",cascade = CascadeType.ALL)
+    List<ReturnInvoiceDocumentItem> returnInvoiceDocumentItemList;
+    @OneToMany(mappedBy = "invoiceDocumentItem",cascade = CascadeType.ALL)
+    List<StoreDocumentItem> storeDocumentItemList;
 }

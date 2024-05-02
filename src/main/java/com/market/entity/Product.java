@@ -27,12 +27,12 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id",nullable = false)
     Category category;
-    @Column(name = "total_amount")
-    Float totalAmount;
+    @Column(name = "store_amount")
+    Float storeAmount = 0.0f;
+    @Column(name = "warehouse_amount")
+    Float warehouseAmount = 0.0f;
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    List<ProductPurchasePrice> productPurchasePriceList;
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    List<ProductSellPrice> productSellPriceList;
+    List<ProductPriceHistory> productPriceHistoryList;
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     List<InvoiceDocumentItem> productDocumentItemList;
 }

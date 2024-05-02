@@ -16,5 +16,6 @@ public class CreateInvoiceDocumentItemDTO {
     InvoiceDocument invoiceDocument;
     Product product;
     Float amount;
-    Float purchasePrice;
+    Float productPrice;
+    Float totalAmount;
 }

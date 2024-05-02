@@ -4,7 +4,6 @@
 <head>
     <link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/app.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/all.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/datatables.min.css" rel="stylesheet">
     <title>Market</title>
@@ -24,6 +23,16 @@
                 <li class="sidebar-item <%=request.getRequestURI().toString().equals(marketMain) ? active: blank %>">
                     <a class="sidebar-link" href="<%=request.getContextPath()%><%=marketMain%>">
                         <i class="fa-solid fa-house mx-sm-1"></i> <span class="align-middle">Menu</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  <%=request.getRequestURI().toString().equals(marketSettings) ? active: blank %>">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%><%=marketSettings%>">
+                        <i class="fa-solid fa-cart-shopping mx-sm-1"></i> <span class="align-middle">Sotuv bo'lim</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  <%=request.getRequestURI().toString().equals(marketSettings) ? active: blank %>">
+                    <a class="sidebar-link" href="<%=request.getContextPath()%><%=marketSettings%>">
+                        <i class="fa-solid fa-store mx-sm-1"></i> <span class="align-middle">Magazine</span>
                     </a>
                 </li>
                 <li class="sidebar-item  <%=request.getRequestURI().toString().equals(marketSettings) ? active: blank %>">

@@ -2,7 +2,6 @@ package com.market.service.impl;
 
 import com.market.dto.invoiceDocumentItem.CreateInvoiceDocumentItemDTO;
 import com.market.dto.invoiceDocumentItem.InvoiceDocumentItemDTO;
-import com.market.dto.invoiceDocumentItem.UpdateInvoiceDocumentItemDTO;
 import com.market.entity.InvoiceDocumentItem;
 import com.market.mapper.InvoiceDocumentItemMapper;
 import com.market.repository.InvoiceDocumentItemRepository;
@@ -27,19 +26,19 @@ public class InvoiceDocumentItemServiceImpl implements InvoiceDocumentItemServic
         invoiceDocumentItem.setInvoiceDocument(createInvoiceDocumentItemDTO.getInvoiceDocument());
         invoiceDocumentItem.setProduct(createInvoiceDocumentItemDTO.getProduct());
         invoiceDocumentItem.setAmount(createInvoiceDocumentItemDTO.getAmount());
-        invoiceDocumentItem.setPurchasePrice(createInvoiceDocumentItemDTO.getPurchasePrice());
+//        invoiceDocumentItem.setPurchasePrice(createInvoiceDocumentItemDTO.getPurchasePrice());
         return invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
     }
 
-    @Override
-    public InvoiceDocumentItemDTO updateInvoiceDocumentItem(Long id, UpdateInvoiceDocumentItemDTO updateInvoiceDocumentItemDTO) {
-        InvoiceDocumentItem invoiceDocumentItem = invoiceDocumentItemRepository.getReferenceById(id);
-        invoiceDocumentItem.setInvoiceDocument(updateInvoiceDocumentItemDTO.getInvoiceDocument());
-        invoiceDocumentItem.setProduct(updateInvoiceDocumentItemDTO.getProduct());
-        invoiceDocumentItem.setAmount(updateInvoiceDocumentItemDTO.getAmount());
-        invoiceDocumentItem.setPurchasePrice(updateInvoiceDocumentItemDTO.getPurchasePrice());
-        return invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
-    }
+//    @Override
+//    public InvoiceDocumentItemDTO updateInvoiceDocumentItem(Long id, UpdateInvoiceDocumentItemDTO updateInvoiceDocumentItemDTO) {
+//        InvoiceDocumentItem invoiceDocumentItem = invoiceDocumentItemRepository.getReferenceById(id);
+//        invoiceDocumentItem.setInvoiceDocument(updateInvoiceDocumentItemDTO.getInvoiceDocument());
+//        invoiceDocumentItem.setProduct(updateInvoiceDocumentItemDTO.getProduct());
+//        invoiceDocumentItem.setAmount(updateInvoiceDocumentItemDTO.getAmount());
+////        invoiceDocumentItem.setPurchasePrice(updateInvoiceDocumentItemDTO.getPurchasePrice());
+//        return invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
+//    }
 
     @Override
     public InvoiceDocumentItemDTO getInvoiceDocumentItemById(Long id) {

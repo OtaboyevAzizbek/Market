@@ -3,9 +3,7 @@ package com.market.service.impl;
 import com.market.dto.product.CreateProductDTO;
 import com.market.dto.product.ProductDTO;
 import com.market.dto.product.UpdateProductDTO;
-import com.market.entity.Category;
 import com.market.entity.Product;
-import com.market.entity.UnitType;
 import com.market.mapper.ProductMapper;
 import com.market.repository.ProductRepository;
 import com.market.service.ProductService;
@@ -29,10 +27,8 @@ public class ProductServiceImpl implements ProductService {
         product.setName(createProductDTO.getName());
         product.setCategory(createProductDTO.getCategory());
         product.setUnitType(createProductDTO.getUnitType());
-        product.setTotalAmount(createProductDTO.getTotalAmount());
         return productMapper.toDTO(productRepository.save(product));
     }
-
     @Override
     public ProductDTO updateProductById(Long id, UpdateProductDTO updateProductDTO) {
         Product product = productRepository.getReferenceById(id);
@@ -41,17 +37,18 @@ public class ProductServiceImpl implements ProductService {
         product.setUnitType(updateProductDTO.getUnitType());
         return productMapper.toDTO(productRepository.save(product));
     }
-
     @Override
     public ProductDTO getProductById(Long id) {
         return productMapper.toDTO(productRepository.getReferenceById(id));
     }
-
+    @Override
+    public ProductDTO getProductByName(String name) {
+        return productMapper.toDTO(productRepository.findFirstByNameEqualsIgnoreCase(name));
+    }
     @Override
     public List<ProductDTO> getProductList() {
-        return productMapper.toDTOs(productRepository.findAll());
+        return productMapper.toDTOs(productRepository.findAllByOrderByIdDesc());
     }
-
     @Override
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);

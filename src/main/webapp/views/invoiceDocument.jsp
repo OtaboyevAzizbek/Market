@@ -13,11 +13,12 @@
         <table class="table table-hover my-0 dataTable">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Yuk xati raqami</th>
-                <th>Tashkilot nomi</th>
-                <th>Yuk xati sanasi</th>
-                <th>Amallar</th>
+                <th style="width:3%;">ID</th>
+                <th style="width:10%;">Yuk xati raqami</th>
+                <th style="width:32%;">Tashkilot nomi</th>
+                <th style="width:15%;">Yuk xati summasi</th>
+                <th style="width:10%;">Yuk xati sanasi</th>
+                <th style="width:30%;">Amallar</th>
             </tr>
             </thead>
             <tbody>
@@ -27,7 +28,8 @@
                 <td><%=count++%></td>
                 <td><%=invoiceDocumentDTO.getDocumentNumber()%></td>
                 <td><%=invoiceDocumentDTO.getOrganization().getName()%></td>
-                <td><%=invoiceDocumentDTO.getTimestamp()%></td>
+                <td><%=invoiceDocumentDTO.getTotalSumma()%></td>
+                <td><%=invoiceDocumentDTO.getDate()%></td>
                 <td>
                     <a href="<%=request.getContextPath()%>/market/view_invoice_document_item/<%=invoiceDocumentDTO.getId()%>" class="btn btn-primary btn-sm"><i class="fa-solid fa-eye mx-sm-1"></i>Ko'rish</a>
                     <button type="button" data-bs-toggle="modal" data-bs-target=".bd-example-modal-a<%=invoiceDocumentDTO.getId()%>" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-to-square mx-sm-1"></i>O'zgartirish</button>
@@ -63,6 +65,10 @@
                                 <input type="hidden" name="id" value="<%=invoiceDocumentDTO.getId()%>">
                                 <div class="modal-body">
                                     <div class="mb-3">
+                                        <label for="exampleDocNumber" class="form-label">Yuk xati raqami</label>
+                                        <input type="text" name="docNum" class="form-control" id="exampleDocNumber" value="<%=invoiceDocumentDTO.getDocumentNumber()%>" required>
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="exampleOrganization2" class="form-label">Tashkilot nomi</label>
                                         <select name="organizationId" id="exampleOrganization2" class="form-control" required>
                                             <option value="" selected>Tashkilotni tanlang</option>
@@ -73,7 +79,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleDate" class="form-label">Yuk xati sanasi</label>
-                                        <input type="datetime-local" step="2" name="date" class="form-control datetimeInput" id="exampleDate" required>
+                                        <input type="datetime-local" step="2" name="date" class="form-control datetimeInput" id="exampleDate" value="<%=invoiceDocumentDTO.getTimestamp()%>" required>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
@@ -102,7 +108,10 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleDocNumber2" class="form-label">Yuk xati raqami</label>
-                        <input type="text" name="docNum" class="form-control" id="exampleDocNumber2" required>
+                        <input type="text" name="docNum" class="form-control exampleDocumentNumber2" id="exampleDocNumber2" required>
+                        <div id="validationServerFeedback" class="invalid-feedback">
+                            Bu raqamdagi yuk xati allaqachon mavjud!
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleOrganization" class="form-label">Tashkilot nomi</label>
@@ -115,14 +124,53 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleDate2" class="form-label">Yuk xati sanasi</label>
-                        <input type="datetime-local" step="2" name="date" class="form-control" id="exampleDate2" required>
+                        <input type="date" name="date" class="form-control" id="exampleDate2" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                        <button type="submit" class="btn btn-success btn-sm saveButton">Saqlash</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#exampleOrganization, #exampleDocNumber2, #exampleDate2").on("change", function () {
+            checkInvoiceDocumentNumberAJAX();
+        });
+    });
+    function checkInvoiceDocumentNumberAJAX() {
+        let organizationId = $("#exampleOrganization").val();
+        let documentNumber = $("#exampleDocNumber2").val();
+        let date = $("#exampleDate2").val();
+
+        if (organizationId && documentNumber && date) {
+            $.ajax({
+                contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+                url: '/market/check_invoice_document',
+                type: "POST",
+                data: {
+                    organizationId: organizationId,
+                    docNumber: documentNumber,
+                    date: date
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data === true) {
+                        $(".exampleDocumentNumber2").addClass("is-invalid");
+                        $(".saveButton").prop('disabled', true);
+                    } else {
+                        $(".exampleDocumentNumber2").removeClass("is-invalid");
+                        $(".saveButton").prop('disabled', false);
+                    }
+                },
+                error: function () {
+                    alert("Xatolik yuz berdi");
+                }
+            });
+        }
+    }
+</script>
 <%@ include file="footer.jsp"%>

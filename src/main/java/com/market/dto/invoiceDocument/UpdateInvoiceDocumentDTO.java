@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -16,5 +16,5 @@ import java.sql.Timestamp;
 public class UpdateInvoiceDocumentDTO {
     String documentNumber;
     Organization organization;
-    Timestamp timestamp;
+    Date date;
 }

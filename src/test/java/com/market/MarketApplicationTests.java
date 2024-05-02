@@ -8,6 +8,6 @@ class MarketApplicationTests {
 
     @Test
     void contextLoads() {
-    }
 
+    }
 }

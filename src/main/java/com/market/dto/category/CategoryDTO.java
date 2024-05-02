@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -16,5 +17,6 @@ import java.util.List;
 public class CategoryDTO {
     Long id;
     String name;
+    Timestamp createdTime;
     List<Product> productList;
 }

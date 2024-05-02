@@ -11,11 +11,11 @@
             <table class="table table-hover my-0 dataTable">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Tashkilot nomi</th>
-                    <th>Tashkilot manzili</th>
-                    <th>Tashkilot tel raqami</th>
-                    <th>Amallar</th>
+                    <th style="width:3%;">ID</th>
+                    <th style="width:35%;">Tashkilot nomi</th>
+                    <th style="width:20%;">Tashkilot manzili</th>
+                    <th style="width:12%;">Tashkilot tel raqami</th>
+                    <th style="width:30%;">Amallar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,7 +62,10 @@
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="exampleOrganizationName" class="form-label">Tashkilot nomi</label>
-                                            <input type="text" name="name" class="form-control" id="exampleOrganizationName" value="<%=organizationDTO.getName()%>" required>
+                                            <input type="text" name="name" class="form-control exampleOrganizationName2" onchange="checkOrganizationNameAJAX(this.value,<%=organizationDTO.getId()%>)" id="exampleOrganizationName" value="<%=organizationDTO.getName()%>" required>
+                                            <div id="validationServerFeedback2" class="invalid-feedback">
+                                                Bu nomdagi tashkilot allaqachon mavjud!
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleOrganizationAddress" class="form-label">Tashkilot manzili</label>
@@ -74,7 +77,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
-                                            <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                                            <button type="submit" class="btn btn-success btn-sm saveButton">Saqlash</button>
                                         </div>
                                 </form>
                             </div>
@@ -98,8 +101,11 @@
             <form action="create_organization" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="exampleOrganizationName2" class="form-label">Tashkilot nomi</label>
-                        <input type="text" name="name" class="form-control" id="exampleOrganizationName2" required>
+                        <label for="exampleOrganizationName3" class="form-label">Tashkilot nomi</label>
+                        <input type="text" name="name" class="form-control exampleOrganizationName2" onchange="checkOrganizationNameAJAX(this.value)" id="exampleOrganizationName3" required>
+                        <div id="validationServerFeedback" class="invalid-feedback">
+                            Bu nomdagi tashkilot allaqachon mavjud!
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleOrganizationAddress2" class="form-label">Tashkilot manzili</label>
@@ -111,10 +117,36 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                        <button type="submit" class="btn btn-success btn-sm saveButton">Saqlash</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function checkOrganizationNameAJAX(value,value2){
+        $.ajax({
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+            url: '/market/check_organization',
+            type: "POST",
+            data: {
+                name:value,
+                id:value2
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data === true) {
+                    $(".exampleOrganizationName2").addClass("is-invalid");
+                    $(".saveButton").prop('disabled', true);
+                }else {
+                    $(".exampleOrganizationName2").removeClass("is-invalid");
+                    $(".saveButton").prop('disabled', false);
+                }
+            },
+            error: function () {
+                alert("Xatolik yuz berdi");
+            }
+        })
+    }
+</script>
 <%@ include file="footer.jsp"%>
