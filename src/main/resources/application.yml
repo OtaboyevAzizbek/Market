@@ -1,12 +1,10 @@
 spring:
-#  main:
-#    web-application-type: none
-  datasource:        # JDBC Configuration
+  datasource: # JDBC Configuration
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/market
     username: postgres
     password: 123
-  jpa:               # JPA Configuration
+  jpa: # JPA Configuration
     hibernate:
       ddl-auto: update
       naming:
@@ -15,9 +13,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  mvc:              # JSP File Configuration
+  mvc: # JSP File Configuration
     view:
       prefix: /views/
       suffix: .jsp
 server:
   port: 8282
+  servlet:
+    session:
+      timeout: 30M
