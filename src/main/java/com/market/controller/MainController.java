@@ -6,6 +6,7 @@ import com.market.dto.category.UpdateCategoryDTO;
 import com.market.dto.invoiceDocument.CreateInvoiceDocumentDTO;
 import com.market.dto.invoiceDocument.InvoiceDocumentDTO;
 import com.market.dto.invoiceDocument.UpdateInvoiceDocumentDTO;
+import com.market.dto.invoiceDocumentItem.CreateInvoiceDocumentItemDTO;
 import com.market.dto.organization.CreateOrganizationDTO;
 import com.market.dto.organization.OrganizationDTO;
 import com.market.dto.organization.UpdateOrganizationDTO;
@@ -15,20 +16,21 @@ import com.market.dto.product.ProductDTO;
 import com.market.dto.productPriceHistory.CreateProductPriceHistoryDTO;
 import com.market.dto.productPriceHistory.ProductPriceHistoryDTO;
 import com.market.dto.unitType.CreateUnitTypeDTO;
+import com.market.dto.unitType.UnitTypeDTO;
 import com.market.dto.unitType.UpdateUnitTypeDTO;
-import com.market.entity.Category;
-import com.market.entity.Organization;
-import com.market.entity.Product;
-import com.market.entity.UnitType;
+import com.market.entity.*;
 import com.market.helper.Helper;
 import com.market.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,27 +40,20 @@ import static com.market.status.ProductPriceType.BUY;
 import static com.market.status.ProductPriceType.SELL;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/market")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class MainController {
 
-    @Autowired
-    CategoryService categoryService;
-    @Autowired
-    OrganizationService organizationService;
-    @Autowired
-    OrganizationCalculateService organizationCalculateService;
-    @Autowired
-    UnitTypeService unitTypeService;
-    @Autowired
-    ProductService productService;
-    @Autowired
-    ProductPriceHistoryService productPriceHistoryService;
-    @Autowired
-    InvoiceDocumentService invoiceDocumentService;
-    @Autowired
-    InvoiceDocumentItemService invoiceDocumentItemService;
-    @Autowired
-    Helper helper;
+    final CategoryService categoryService;
+    final OrganizationService organizationService;
+    final OrganizationCalculateService organizationCalculateService;
+    final UnitTypeService unitTypeService;
+    final ProductService productService;
+    final ProductPriceHistoryService productPriceHistoryService;
+    final InvoiceDocumentService invoiceDocumentService;
+    final InvoiceDocumentItemService invoiceDocumentItemService;
+    final Helper helper;
 
     @GetMapping("/main")
     public ModelAndView mainPage() {
@@ -74,10 +69,11 @@ public class MainController {
     public ModelAndView settingsPage() {
         ModelAndView modelAndView = new ModelAndView("settings");
         modelAndView.addObject("categoryNum", categoryService.getCategoryList().size());
-        modelAndView.addObject("organizationNum", organizationService.getOrganizationList().size());
+        modelAndView.addObject("organizationNum", organizationService.getUndeletedOrganizationList().size());
         modelAndView.addObject("unitTypeNum", unitTypeService.getUnitTypeList().size());
         modelAndView.addObject("productNum", productService.getProductList().size());
         modelAndView.addObject("invoiceDocNum", invoiceDocumentService.getInvoiceDocumentList().size());
+        modelAndView.addObject("incomeNum", invoiceDocumentItemService.getInvoiceDocumentItemList().size());
         return modelAndView;
     }
 
@@ -107,13 +103,12 @@ public class MainController {
     }
 
     @PostMapping("/check_category")
-    @ResponseBody
     public Boolean checkCategory(@RequestParam("name") String name, @RequestParam(value = "id", required = false) Long id) {
         Optional<CategoryDTO> categoryDTO = Optional.ofNullable(categoryService.getCategoryByName(name));
         if (id != null && categoryDTO.isPresent()) {
-            return categoryDTO.get().getId() == id ? false : true;
+            return !Objects.equals(categoryDTO.get().getId(), id);
         }
-        return categoryDTO.isPresent() ? true : false;
+        return categoryDTO.isPresent();
     }
 
     @GetMapping("/view_categories")
@@ -124,8 +119,8 @@ public class MainController {
     }
 
     @PostMapping("/create_organization")
-    public ModelAndView createOrganization(@RequestParam("name") String name, @RequestParam("address") String address, @RequestParam("phoneNumber") String phoneNumber) {
-        OrganizationDTO organizationDTO = organizationService.createOrganization(new CreateOrganizationDTO(name, address, phoneNumber));
+    public ModelAndView createOrganization(@RequestParam("name") String name, @RequestParam("inn") String inn, @RequestParam("address") String address, @RequestParam("phoneNumber") String phoneNumber) {
+        OrganizationDTO organizationDTO = organizationService.createOrganization(new CreateOrganizationDTO(name, inn, address, phoneNumber));
         Organization organization = new Organization();
         organization.setId(organizationDTO.getId());
         organizationCalculateService.createOrganizationCalculate(new CreateOrganizationCalculateDTO(organization, 0f, 0f));
@@ -133,8 +128,8 @@ public class MainController {
     }
 
     @PostMapping("/update_organization")
-    public ModelAndView updateOrganization(@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("address") String address, @RequestParam("phoneNumber") String phoneNumber) {
-        organizationService.updateOrganization(id, new UpdateOrganizationDTO(name, address, phoneNumber));
+    public ModelAndView updateOrganization(@RequestParam("id") Long id, @RequestParam("name") String name, @RequestParam("inn") String inn, @RequestParam("address") String address, @RequestParam("phoneNumber") String phoneNumber) {
+        organizationService.updateOrganization(id, new UpdateOrganizationDTO(name, inn, address, phoneNumber));
         return new ModelAndView("redirect:/market/view_organizations");
     }
 
@@ -157,19 +152,18 @@ public class MainController {
     }
 
     @PostMapping("/check_organization")
-    @ResponseBody
-    public Boolean checkOrganization(@RequestParam("name") String name, @RequestParam(value = "id", required = false) Long id) {
-        Optional<OrganizationDTO> organizationDTO = Optional.ofNullable(organizationService.getOrganizationByName(name));
+    public Boolean checkOrganization(@RequestParam("name") String name, @RequestParam("inn") String inn, @RequestParam(value = "id", required = false) Long id) {
+        Optional<OrganizationDTO> organizationDTO = Optional.ofNullable(organizationService.getOrganizationByNameAndInn(name, inn));
         if (id != null && organizationDTO.isPresent()) {
-            return organizationDTO.get().getId() == id ? false : true;
+            return !Objects.equals(organizationDTO.get().getId(), id);
         }
-        return organizationDTO.isPresent() ? true : false;
+        return organizationDTO.isPresent();
     }
 
     @GetMapping("/view_organizations")
     public ModelAndView viewOrganizationList() {
         ModelAndView modelAndView = new ModelAndView("organization");
-        modelAndView.addObject("organizationList", organizationService.getOrganizationList());
+        modelAndView.addObject("organizationList", organizationService.getUndeletedOrganizationList());
         return modelAndView;
     }
 
@@ -184,7 +178,7 @@ public class MainController {
     @GetMapping("/view_organizations_list")
     public ModelAndView viewOrganizationListForWarehouse() {
         ModelAndView modelAndView = new ModelAndView("menuOrganization");
-        modelAndView.addObject("organizationList", organizationService.getOrganizationList());
+        modelAndView.addObject("organizationList", organizationService.getUndeletedOrganizationList());
         return modelAndView;
     }
 
@@ -194,17 +188,19 @@ public class MainController {
         return new ModelAndView("redirect:/market/view_unit_types");
     }
 
+    @PostMapping("/check_unit_type")
+    public Boolean checkUnitType(@RequestParam("name") String name, @RequestParam(value = "id", required = false) Long id) {
+        Optional<UnitTypeDTO> unitType = Optional.ofNullable(unitTypeService.getUnitTypeByName(name));
+        if (id != null && unitType.isPresent()) {
+            return !unitType.get().getId().equals(id);
+        }
+        return unitType.isPresent();
+    }
+
     @PostMapping("/update_unit_type")
     public ModelAndView updateUnitType(@RequestParam("id") Long id, @RequestParam("name") String name) {
         unitTypeService.updateUnitType(id, new UpdateUnitTypeDTO(name));
         return new ModelAndView("redirect:/market/view_unit_types");
-    }
-
-    @GetMapping("/view_unit_type/{id}")
-    public ModelAndView viewUnitType(@PathVariable("id") Long id) {
-        ModelAndView modelAndView = new ModelAndView("unitType");
-        modelAndView.addObject("unitType", unitTypeService.getUnitTypeById(id));
-        return modelAndView;
     }
 
     @GetMapping("/delete_unit_type/{id}")
@@ -260,7 +256,7 @@ public class MainController {
     @PostMapping("/check_product")
     public Boolean checkProduct(@RequestParam("name") String name) {
         ProductDTO productDTO = productService.getProductByName(name);
-        return productDTO != null ? true : false;
+        return productDTO != null;
     }
 
     @GetMapping("/view_products")
@@ -269,10 +265,9 @@ public class MainController {
         modelAndView.addObject("categoryList", categoryService.getCategoryList());
         modelAndView.addObject("unitTypeList", unitTypeService.getUnitTypeList());
         List<ProductDTO> productDTOList = productService.getProductList().stream()
-                .map(x -> {
+                .peek(x -> {
                     x.setBuyPrice(productPriceHistoryService.getProductPriceHistoryByProductAndProductPriceType(Product.builder().id(x.getId()).build(), BUY, ACTIVE).getPrice());
                     x.setSellPrice(productPriceHistoryService.getProductPriceHistoryByProductAndProductPriceType(Product.builder().id(x.getId()).build(), SELL, ACTIVE).getPrice());
-                    return x;
                 }).collect(Collectors.toList());
         modelAndView.addObject("productList", productDTOList);
         return modelAndView;
@@ -297,11 +292,12 @@ public class MainController {
     }
 
     @PostMapping("/check_invoice_document")
-    @ResponseBody
-    public Boolean checkInvoiceDocument(@RequestParam("organizationId") Long organizationId, @RequestParam("docNumber") String docNumber, @RequestParam("date") String date) {
+    public Boolean checkInvoiceDocument(@RequestParam("docId") Long docId, @RequestParam("organizationId") Long organizationId, @RequestParam("docNumber") String docNumber, @RequestParam("date") String date) {
         Optional<InvoiceDocumentDTO> invoiceDocumentDTO = Optional.ofNullable(invoiceDocumentService.getInvoiceDocumentByOrganizationAndDocumentNumberAndDate(Organization.builder().id(organizationId).build(), docNumber, Date.valueOf(date)));
-        System.out.println("Answer -> " + invoiceDocumentDTO.isPresent());
-        return invoiceDocumentDTO.isPresent() ? true : false;
+        if (docId != null && invoiceDocumentDTO.isPresent()) {
+            return !invoiceDocumentDTO.get().getId().equals(docId);
+        }
+        return invoiceDocumentDTO.isPresent();
     }
 
     @GetMapping("/delete_invoice_document/{id}")
@@ -314,17 +310,16 @@ public class MainController {
     public ModelAndView viewInvoiceDocumentList() {
         ModelAndView modelAndView = new ModelAndView("invoiceDocument");
         modelAndView.addObject("invoiceDocumentList", invoiceDocumentService.getInvoiceDocumentList());
-        modelAndView.addObject("organizationList", organizationService.getOrganizationList());
+        modelAndView.addObject("organizationList", organizationService.getUndeletedOrganizationList());
         return modelAndView;
     }
 
-//    @PostMapping("/create_invoice_document_item")
-//    public ModelAndView createInvoiceDocumentItem(@RequestParam("invoiceDocId") Long invoiceDocId, @RequestParam("productId") Long productId,@RequestParam("amount") Float amount){
-//        List<ProductPurchasePriceDTO> purchasePriceDTOS = productPurchasePriceService.getProductPurchaseListPriceByProductAndStatus(Product.builder().id(productId).build());
-//        Float purchasePrice = purchasePriceDTOS.get(purchasePriceDTOS.size()-1).getPrice();
-//        invoiceDocumentItemService.createInvoiceDocumentItem(new CreateInvoiceDocumentItemDTO(InvoiceDocument.builder().id(invoiceDocId).build(), Product.builder().id(productId).build(),amount,purchasePrice));
-//        return new ModelAndView("redirect:/market/view_invoice_document_items");
-//    }
+    @PostMapping("/create_invoice_document_item")
+    public ModelAndView createInvoiceDocumentItem(@RequestParam("invoiceDocId") Long invoiceDocId, @RequestParam("productId") Long productId, @RequestParam("amount") Float amount) {
+        ProductPriceHistoryDTO productPriceHistory = productPriceHistoryService.getProductPriceHistoryByProductAndProductPriceType(Product.builder().id(productId).build(), BUY, ACTIVE);
+        invoiceDocumentItemService.createInvoiceDocumentItem(new CreateInvoiceDocumentItemDTO(InvoiceDocument.builder().id(invoiceDocId).build(), Product.builder().id(productId).build(), amount, productPriceHistory.getPrice(), amount));
+        return new ModelAndView("redirect:/market/view_invoice_document_items");
+    }
 
     @GetMapping("/view_invoice_document_item/{id}")
     public ModelAndView viewInvoiceDocumentItem(@PathVariable("id") Long id) {

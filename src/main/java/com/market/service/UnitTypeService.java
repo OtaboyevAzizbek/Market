@@ -7,9 +7,13 @@ import com.market.dto.unitType.UpdateUnitTypeDTO;
 import java.util.List;
 
 public interface UnitTypeService {
-    UnitTypeDTO createUnitType(CreateUnitTypeDTO createUnitTypeDTO);
-    UnitTypeDTO updateUnitType(Long id, UpdateUnitTypeDTO updateUnitTypeDTO);
-    UnitTypeDTO getUnitTypeById(Long id);
+    void createUnitType(CreateUnitTypeDTO createUnitTypeDTO);
+
+    void updateUnitType(Long id, UpdateUnitTypeDTO updateUnitTypeDTO);
+
+    UnitTypeDTO getUnitTypeByName(String name);
+
     List<UnitTypeDTO> getUnitTypeList();
+
     void deleteUnitTypeById(Long id);
 }

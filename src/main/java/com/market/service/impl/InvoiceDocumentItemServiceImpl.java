@@ -21,13 +21,14 @@ public class InvoiceDocumentItemServiceImpl implements InvoiceDocumentItemServic
     InvoiceDocumentItemMapper invoiceDocumentItemMapper;
 
     @Override
-    public InvoiceDocumentItemDTO createInvoiceDocumentItem(CreateInvoiceDocumentItemDTO createInvoiceDocumentItemDTO) {
+    public void createInvoiceDocumentItem(CreateInvoiceDocumentItemDTO createInvoiceDocumentItemDTO) {
         InvoiceDocumentItem invoiceDocumentItem = new InvoiceDocumentItem();
         invoiceDocumentItem.setInvoiceDocument(createInvoiceDocumentItemDTO.getInvoiceDocument());
         invoiceDocumentItem.setProduct(createInvoiceDocumentItemDTO.getProduct());
         invoiceDocumentItem.setAmount(createInvoiceDocumentItemDTO.getAmount());
-//        invoiceDocumentItem.setPurchasePrice(createInvoiceDocumentItemDTO.getPurchasePrice());
-        return invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
+        invoiceDocumentItem.setProductPrice(createInvoiceDocumentItemDTO.getProductPrice());
+        invoiceDocumentItem.setTotalAmount(createInvoiceDocumentItemDTO.getTotalAmount());
+        invoiceDocumentItemMapper.toDTO(invoiceDocumentItemRepository.save(invoiceDocumentItem));
     }
 
 //    @Override

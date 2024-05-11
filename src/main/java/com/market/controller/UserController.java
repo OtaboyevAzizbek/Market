@@ -17,7 +17,6 @@ public class UserController {
 
     @PostMapping("/create_user")
     public void signup(@RequestBody CreateUserDTO createUserDTO) {
-        System.out.println("salom");
         userService.createUser(createUserDTO);
     }
 }

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface OrganizationRepository extends JpaRepository<Organization,Long> {
-    Organization findFirstByNameEqualsIgnoreCase(String name);
+public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+    Organization findFirstByNameEqualsIgnoreCaseOrInnEqualsIgnoreCase(String name, String inn);
+
     List<Organization> findAllByDeletedTimeIsNullOrderByIdDesc();
+
     List<Organization> findAllByDeletedTimeIsNotNullOrderByIdDesc();
 }

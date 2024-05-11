@@ -18,6 +18,7 @@ import java.util.List;
 public class OrganizationDTO {
     Long id;
     String name;
+    String inn;
     String address;
     String phoneNumber;
     Timestamp timestamp;

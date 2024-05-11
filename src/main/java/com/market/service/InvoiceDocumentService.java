@@ -9,8 +9,8 @@ import java.sql.Date;
 import java.util.List;
 
 public interface InvoiceDocumentService {
-    InvoiceDocumentDTO createInvoiceDocument(CreateInvoiceDocumentDTO createInvoiceDocumentDTO);
-    InvoiceDocumentDTO updateInvoiceDocumentById(Long id, UpdateInvoiceDocumentDTO updateInvoiceDocumentDTO);
+    void createInvoiceDocument(CreateInvoiceDocumentDTO createInvoiceDocumentDTO);
+    void updateInvoiceDocumentById(Long id, UpdateInvoiceDocumentDTO updateInvoiceDocumentDTO);
     InvoiceDocumentDTO getInvoiceDocumentById(Long id);
     InvoiceDocumentDTO getInvoiceDocumentByOrganizationAndDocumentNumberAndDate(Organization organization,String docNumber,Date date);
     List<InvoiceDocumentDTO> getInvoiceDocumentList();

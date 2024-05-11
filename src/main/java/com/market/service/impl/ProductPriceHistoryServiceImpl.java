@@ -24,20 +24,20 @@ public class ProductPriceHistoryServiceImpl implements ProductPriceHistoryServic
     ProductPriceHistoryMapper productPriceHistoryMapper;
 
     @Override
-    public ProductPriceHistoryDTO createProductPriceHistory(CreateProductPriceHistoryDTO createProductPriceHistoryDTO) {
+    public void createProductPriceHistory(CreateProductPriceHistoryDTO createProductPriceHistoryDTO) {
         ProductPriceHistory productPriceHistory = new ProductPriceHistory();
         productPriceHistory.setProduct(createProductPriceHistoryDTO.getProduct());
         productPriceHistory.setProductPriceType(createProductPriceHistoryDTO.getProductPriceType());
         productPriceHistory.setPrice(createProductPriceHistoryDTO.getPrice());
         productPriceHistory.setProductPriceStatus(createProductPriceHistoryDTO.getProductPriceStatus());
-        return productPriceHistoryMapper.toDTO(productPriceHistoryRepository.save(productPriceHistory));
+        productPriceHistoryMapper.toDTO(productPriceHistoryRepository.save(productPriceHistory));
     }
 
     @Override
-    public ProductPriceHistoryDTO updateProductPriceHistoryById(Long id, ProductPriceStatus productPriceStatus) {
+    public void updateProductPriceHistoryById(Long id, ProductPriceStatus productPriceStatus) {
         ProductPriceHistory productPriceHistory = productPriceHistoryRepository.getReferenceById(id);
         productPriceHistory.setProductPriceStatus(productPriceStatus);
-        return productPriceHistoryMapper.toDTO(productPriceHistoryRepository.save(productPriceHistory));
+        productPriceHistoryMapper.toDTO(productPriceHistoryRepository.save(productPriceHistory));
     }
 
     @Override

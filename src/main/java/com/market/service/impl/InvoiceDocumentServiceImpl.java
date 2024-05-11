@@ -24,20 +24,20 @@ public class InvoiceDocumentServiceImpl implements InvoiceDocumentService {
     InvoiceDocumentMapper invoiceDocumentMapper;
 
     @Override
-    public InvoiceDocumentDTO createInvoiceDocument(CreateInvoiceDocumentDTO createInvoiceDocumentDTO) {
+    public void createInvoiceDocument(CreateInvoiceDocumentDTO createInvoiceDocumentDTO) {
         InvoiceDocument invoiceDocument = new InvoiceDocument();
         invoiceDocument.setDocumentNumber(createInvoiceDocumentDTO.getDocumentNumber());
         invoiceDocument.setOrganization(createInvoiceDocumentDTO.getOrganization());
         invoiceDocument.setDate(createInvoiceDocumentDTO.getDate());
-        return invoiceDocumentMapper.toDTO(invoiceDocumentRepository.save(invoiceDocument));
+        invoiceDocumentMapper.toDTO(invoiceDocumentRepository.save(invoiceDocument));
     }
     @Override
-    public InvoiceDocumentDTO updateInvoiceDocumentById(Long id, UpdateInvoiceDocumentDTO updateInvoiceDocumentDTO) {
+    public void updateInvoiceDocumentById(Long id, UpdateInvoiceDocumentDTO updateInvoiceDocumentDTO) {
         InvoiceDocument invoiceDocument = invoiceDocumentRepository.getReferenceById(id);
         invoiceDocument.setDocumentNumber(updateInvoiceDocumentDTO.getDocumentNumber());
         invoiceDocument.setOrganization(updateInvoiceDocumentDTO.getOrganization());
         invoiceDocument.setDate(updateInvoiceDocumentDTO.getDate());
-        return invoiceDocumentMapper.toDTO(invoiceDocumentRepository.save(invoiceDocument));
+        invoiceDocumentMapper.toDTO(invoiceDocumentRepository.save(invoiceDocument));
     }
     @Override
     public InvoiceDocumentDTO getInvoiceDocumentById(Long id) {

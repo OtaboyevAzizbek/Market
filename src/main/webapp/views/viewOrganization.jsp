@@ -73,7 +73,7 @@
                     </thead>
                     <tbody>
                     <% int count2=1;%>
-                    <% for (InvoiceDocument invoiceDocument : organizationDTO.getInvoiceDocumentList()) {%>
+                    <% for (InvoiceDocumentDTO invoiceDocument : invoiceDocumentDTOList) {%>
                     <% for (InvoiceDocumentItem invoiceDocumentItem : invoiceDocument.getInvoiceDocumentItemList()) {%>
                     <tr>
                         <td><%=count2++%></td>

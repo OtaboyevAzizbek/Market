@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateOrganizationDTO {
     String name;
+    String inn;
     String address;
     String phoneNumber;
 }

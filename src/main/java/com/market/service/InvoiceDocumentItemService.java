@@ -6,7 +6,7 @@ import com.market.dto.invoiceDocumentItem.InvoiceDocumentItemDTO;
 import java.util.List;
 
 public interface InvoiceDocumentItemService {
-    InvoiceDocumentItemDTO createInvoiceDocumentItem(CreateInvoiceDocumentItemDTO createInvoiceDocumentItemDTO);
+    void createInvoiceDocumentItem(CreateInvoiceDocumentItemDTO createInvoiceDocumentItemDTO);
 //    InvoiceDocumentItemDTO updateInvoiceDocumentItem(Long id, UpdateInvoiceDocumentItemDTO updateInvoiceDocumentItemDTO);
     InvoiceDocumentItemDTO getInvoiceDocumentItemById(Long id);
     List<InvoiceDocumentItemDTO> getInvoiceDocumentItemList();

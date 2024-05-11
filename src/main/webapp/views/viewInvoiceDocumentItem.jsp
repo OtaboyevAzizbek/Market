@@ -1,7 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.market.dto.invoiceDocumentItem.InvoiceDocumentItemDTO" %>
-<%@ page import="com.market.dto.invoiceDocument.InvoiceDocumentDTO" %>
-<%@ page import="com.market.dto.product.ProductDTO" %>
 <%@ page import="com.market.entity.InvoiceDocumentItem" %>
 <%@ include file="header.jsp"%>
 <%List<InvoiceDocumentItem> invoiceDocumentItemList = (List<InvoiceDocumentItem>) request.getAttribute("invoiceDocumentItemList");%>
@@ -29,9 +27,13 @@
                     <td><%=invoiceDocumentItemDTO.getProduct().getName()%></td>
                     <td><%=invoiceDocumentItemDTO.getAmount()%></td>
                     <td><%=invoiceDocumentItemDTO.getProduct().getUnitType().getName()%></td>
-                    <td><%=invoiceDocumentItemDTO.getPurchasePrice()%></td>
+                    <td><%=invoiceDocumentItemDTO.getProductPrice()%></td>
                 </tr>
                 <%}%>
+                <div class="pull-right hidden-xs">
+                    <b id="result"
+                       style="font-size: 24px; font-weight: 900; color: teal; text-decoration: underline; margin-right: 10px">1000000</b> SO'M
+                </div>
                 </tbody>
             </table>
         </div>

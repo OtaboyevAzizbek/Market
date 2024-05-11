@@ -27,18 +27,20 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationDTO createOrganization(CreateOrganizationDTO createOrganizationDTO) {
         Organization organization = new Organization();
         organization.setName(createOrganizationDTO.getName());
+        organization.setInn(createOrganizationDTO.getInn());
         organization.setAddress(createOrganizationDTO.getAddress());
         organization.setPhoneNumber(createOrganizationDTO.getPhoneNumber());
         return organizationMapper.toDTO(organizationRepository.save(organization));
     }
 
     @Override
-    public OrganizationDTO updateOrganization(Long id, UpdateOrganizationDTO updateOrganizationDTO) {
+    public void updateOrganization(Long id, UpdateOrganizationDTO updateOrganizationDTO) {
         Organization organization = organizationRepository.getReferenceById(id);
         organization.setName(updateOrganizationDTO.getName());
+        organization.setInn(updateOrganizationDTO.getInn());
         organization.setPhoneNumber(updateOrganizationDTO.getPhoneNumber());
         organization.setAddress(updateOrganizationDTO.getAddress());
-        return organizationMapper.toDTO(organizationRepository.save(organization));
+        organizationMapper.toDTO(organizationRepository.save(organization));
     }
 
     @Override
@@ -47,12 +49,17 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     @Override
-    public OrganizationDTO getOrganizationByName(String name) {
-        return organizationMapper.toDTO(organizationRepository.findFirstByNameEqualsIgnoreCase(name));
+    public OrganizationDTO getOrganizationByNameAndInn(String name, String inn) {
+        return organizationMapper.toDTO(organizationRepository.findFirstByNameEqualsIgnoreCaseOrInnEqualsIgnoreCase(name, inn));
     }
 
     @Override
-    public List<OrganizationDTO> getOrganizationList() {
+    public List<OrganizationDTO> getDeletedOrganizationList() {
+        return organizationMapper.toDTOs(organizationRepository.findAllByDeletedTimeIsNotNullOrderByIdDesc());
+    }
+
+    @Override
+    public List<OrganizationDTO> getUndeletedOrganizationList() {
         return organizationMapper.toDTOs(organizationRepository.findAllByDeletedTimeIsNullOrderByIdDesc());
     }
 
@@ -60,6 +67,13 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void deleteOrganizationById(Long id) {
         Organization organization = organizationRepository.getReferenceById(id);
         organization.setDeletedTime(Timestamp.valueOf(LocalDateTime.now()));
+        organizationRepository.save(organization);
+    }
+
+    @Override
+    public void restoreOrganizationById(Long id) {
+        Organization organization = organizationRepository.getReferenceById(id);
+        organization.setDeletedTime(null);
         organizationRepository.save(organization);
     }
 }

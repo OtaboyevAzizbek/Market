@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.market.dto.invoiceDocumentItem.InvoiceDocumentItemDTO" %>
 <%@ page import="com.market.dto.invoiceDocument.InvoiceDocumentDTO" %>
@@ -34,7 +35,7 @@
                 <td><%=documentItemDTO.getProduct().getName()%></td>
                 <td><%=documentItemDTO.getAmount()%></td>
                 <td><%=documentItemDTO.getProduct().getUnitType().getName()%></td>
-<%--                <td><%=documentItemDTO.getPurchasePrice()%></td>--%>
+                <td><%=documentItemDTO.getProductPrice()%></td>
             </tr>
             <%}%>
             </tbody>
@@ -57,7 +58,7 @@
                         <select name="invoiceDocId" id="exampleInvoiceDocItem2" class="form-control" required>
                             <option value="" selected>Yuk xatini tanlang</option>
                             <% for (InvoiceDocumentDTO invoiceDocumentDTO : invoiceDocumentDTOList) {%>
-                            <option value="<%=invoiceDocumentDTO.getId()%>"><%=invoiceDocumentDTO.getOrganization().getName()%> || № <%=invoiceDocumentDTO.getDocumentNumber()%></option>
+                            <option value="<%=invoiceDocumentDTO.getId()%>">№ <%=invoiceDocumentDTO.getDocumentNumber()%> || <%=invoiceDocumentDTO.getOrganization().getName()%> || <%=invoiceDocumentDTO.getDate()%></option>
                             <%}%>
                         </select>
                     </div>

@@ -21,19 +21,21 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "organization_id")
     Long id;
-    @Column(name = "organization_name",nullable = false,unique = true)
+    @Column(name = "organization_name", nullable = false)
     String name;
-    @Column(name = "organization_address",nullable = false)
+    @Column(name = "inn", nullable = false)
+    String inn;
+    @Column(name = "organization_address", nullable = false)
     String address;
-    @Column(name = "phone_number",nullable = false)
+    @Column(name = "phone_number", nullable = false)
     String phoneNumber;
     @CreationTimestamp
-    @Column(name = "created_time",nullable = false,updatable = false)
+    @Column(name = "created_time", nullable = false, updatable = false)
     Timestamp timestamp;
     @Column(name = "deleted_time")
     Timestamp deletedTime;
-    @OneToOne(mappedBy = "organization",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "organization", cascade = CascadeType.ALL)
     OrganizationCalculate organizationCalculate;
-    @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
     List<InvoiceDocument> invoiceDocumentList;
 }
